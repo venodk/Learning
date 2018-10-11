@@ -1,0 +1,22 @@
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+
+# IDE Files #
+.classpath
+.project
+.settings/
+.idea/
+*.iml
+
+dist
+build
+bin
+*.class
+target/
+
+#Testing Files
+output/
+velocity*
