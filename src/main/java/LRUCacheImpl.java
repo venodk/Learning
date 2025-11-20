@@ -2,9 +2,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LRUCacheImpl<K, V> {
-    Map<K, Entry<K, V>> map;
-    Entry<K, V> head, tail;
-    int capacity;
+    private final Map<K, Entry<K, V>> map;
+    private final Entry<K, V> head, tail;
+    private final int capacity;
 
     public LRUCacheImpl(int capacity) {
         this.capacity = capacity;

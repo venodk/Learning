@@ -1,4 +1,4 @@
-package learn.serialization;
+package learning.serialization;
 
 import java.io.File;
 import java.io.FileOutputStream;

@@ -31,7 +31,10 @@ public class InMemoryFileSystem {
         Node current = root;
         for (int i = 0; i < parts.length - 1; i++) {
             String part = parts[i];
-            if (!current.children.containsKey(part) || !current.children.get(part).isDirectory) {
+            if (!current.children.containsKey(part)) {
+                current.children.put(part, new Node(part, true));
+            }
+            if ( !current.children.get(part).isDirectory) {
                 throw new IllegalArgumentException("Invalid path: " + path);
             }
             current = current.children.get(part);

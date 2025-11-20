@@ -40,7 +40,7 @@ public class Personio {
         public List<OrderStatus> processOrders(List<Order> orders) {
             List<OrderStatus> result = new ArrayList<>();
             for (Order order : orders) {
-                if (order.products.stream().anyMatch(this::isProductAvailable)) {
+                if (order.products.stream().allMatch(this::isProductAvailable)) {
                     order.products.forEach(product -> this.store.get(product.id).count -= product.count);
                     result.add(new OrderStatus(order.orderId, "SUCCESS"));
                 } else {
@@ -51,7 +51,7 @@ public class Personio {
         }
 
         private boolean isProductAvailable(Product product) {
-            return store.get(product.id) != null && store.get(product.id).count < product.count;
+            return store.get(product.id) != null && store.get(product.id).count >= product.count;
         }
 
         public void updateInventory(long productId, long count) {

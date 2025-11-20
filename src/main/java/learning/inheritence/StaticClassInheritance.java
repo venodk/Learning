@@ -1,6 +1,6 @@
 package learning.inheritence;
 
-public class StaticClassInheritence {
+public class StaticClassInheritance {
 
 	public static void main(String[] args) {
 		Base b = new Base();

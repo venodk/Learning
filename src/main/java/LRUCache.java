@@ -1,19 +1,36 @@
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class LRUCache<K, V> extends LinkedHashMap<K, V> {
+public class LRUCache<K, V> {
     private final int capacity;
+    private final LinkedHashMap<K, V> cache;
 
     public LRUCache(int capacity) {
-        // Set accessOrder to true to maintain access order
-        super(capacity, 0.75f, true);
         this.capacity = capacity;
+        // Set accessOrder to true to maintain access order
+        this.cache = new LinkedHashMap<>(capacity, 0.75f, true) {
+            @Override
+            protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
+                // The anonymous class has access to the outer class's 'capacity' field
+                return size() > LRUCache.this.capacity;
+            }
+        };
     }
 
-    @Override
-    protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
-        // Remove the eldest entry when the size exceeds the specified capacity
-        return size() > capacity;
+    public V get(K key) {
+        return cache.get(key);
+    }
+
+    public void put(K key, V value) {
+        cache.put(key, value);
+    }
+
+    public int size() {
+        return cache.size();
+    }
+
+    public void clear() {
+        cache.clear();
     }
 
     public static void main(String[] args) {
