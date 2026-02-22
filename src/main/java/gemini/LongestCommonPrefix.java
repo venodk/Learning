@@ -9,10 +9,10 @@ public class LongestCommonPrefix {
         }
 
         /**
-        * Don't do binary search,
-         * may be the mid-value match for all words, but there might char don't match on left of mid
+         * Don't do binary search,
+         * may be the mid-value match for all words, but there might char don't match on the left of mid
          * this case cannot identify with binary search
-         * ("abcde", "accde"). Mid-value c matches, but there is a miss in left of mid(b != c)
+         * ("abcde", "accde"). Mid-value c matches, but there is a miss in the left of mid(b != c)
         **/
 
         int minLength = words.stream().mapToInt(String::length).min().getAsInt();

@@ -26,8 +26,8 @@ public class SumToZero {
 
     /**
      * Gemini suggestion,
-     * 1. see how they converted collection to Integer array
-     * 2. How array is sorted
+     * 1. see how they converted a collection to Integer array
+     * 2. How the array is sorted
 
     public static boolean isSumExists(Collection<Integer> numbers) {
         if (numbers == null || numbers.size() < 3) { // Changed to size()

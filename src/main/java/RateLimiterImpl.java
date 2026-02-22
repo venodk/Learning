@@ -23,16 +23,13 @@ public class RateLimiterImpl implements RateLimiter {
         while (!set.isEmpty() && set.peek() + timeLimit < timeNow) {
             set.poll();
         }
-        boolean retValue = false;
-        if (set.size() >= maxRequest) {
-            retValue = true;
-        }
+        boolean retValue = set.size() >= maxRequest;
         set.add(timeNow);
         return retValue;
     }
 
     public static void main(String[] args) {
-        RateLimiterImpl limiter = new RateLimiterImpl(TimeUnit.SECONDS, 3, 5);
+        RateLimiter limiter = new RateLimiterImpl(TimeUnit.SECONDS, 3, 5);
         boolean ret1 = limiter.limit();
         boolean ret2 = limiter.limit();
         boolean ret3 = limiter.limit();

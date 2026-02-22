@@ -84,8 +84,7 @@ public class InMemoryFileSystem {
     public void mkdir(String path) {
         String[] parts = getPathParts(path);
         Node current = root;
-        for (int i = 0; i < parts.length; i++) {
-            String part = parts[i];
+        for (String part : parts) {
             if (!current.children.containsKey(part)) {
                 Node newDir = new Node(part, true);
                 current.children.put(part, newDir);
@@ -151,7 +150,7 @@ public class InMemoryFileSystem {
 
     public String read(String path) {
         if (!filesWithContent.containsKey(path)) {
-            throw new IllegalArgumentException("file " + path + " doesn't exists.");
+            throw new IllegalArgumentException("file " + path + " doesn't exist.");
         }
         return filesWithContent.get(path);
     }

@@ -1,23 +1,24 @@
+import java.util.Collections;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 interface CacheReplacementPolicy<K, V> {
-    void onPut(K key, V value, Map<K, V> cache);
+    void onPut(K key);
 
-    void onGet(K key, Map<K, V> cache);
+    void onGet(K key);
 
     K evict(Map<K, V> cache);
 }
 
 class LRUCacheReplacementPolicy<K, V> implements CacheReplacementPolicy<K, V> {
     @Override
-    public void onPut(K key, V value, Map<K, V> cache) {
+    public void onPut(K key) {
         // No specific action needed for LRU on a put operation
     }
 
     @Override
-    public void onGet(K key, Map<K, V> cache) {
+    public void onGet(K key) {
         // No specific action needed for LRU on a get operation
     }
 
@@ -65,7 +66,7 @@ public class SetAssociativeCache<K, V> {
         CacheLine<K, V> set = sets.get(setIndex);
 
         if (set.containsKey(key)) {
-            replacementPolicy.onGet(key, set);
+            replacementPolicy.onGet(key);
             return set.get(key);
         }
 
@@ -77,12 +78,12 @@ public class SetAssociativeCache<K, V> {
         CacheLine<K, V> set = sets.get(setIndex);
 
         if (set.size() >= setSize) {
-            K evictedKey = replacementPolicy.evict(set);
+            K evictedKey = replacementPolicy.evict(Collections.unmodifiableMap(set));
             set.remove(evictedKey);
         }
 
         set.put(key, value);
-        replacementPolicy.onPut(key, value, set);
+        replacementPolicy.onPut(key);
     }
 
     public static void main(String[] args) {
@@ -94,9 +95,12 @@ public class SetAssociativeCache<K, V> {
         cache.put(4, "Four");
 
         System.out.println("Value for key 2: " + cache.get(2));
-        cache.put(5, "Five");
 
+        cache.put(5, "Five");
         System.out.println("Value for key 1: " + cache.get(1));
+
+        cache.put(9, "Nine");
+        System.out.println("Value for key 5: " + cache.get(5)); // must be null, 9 must replace 5.
     }
 }
 

@@ -24,12 +24,15 @@ public class Room {
 
     public boolean isAvailable(int startTime, int endTime) {
         if (startTime >= endTime) throw new IllegalArgumentException("End time must be greater than start time.");
+        return bookings.stream().noneMatch( booking -> booking.startTime() < endTime && booking.endTime() > startTime);
+        /**
         for (Booking booking : bookings) {
             if (booking.startTime() < endTime && booking.endTime() > startTime) {
                 return false;
             }
         }
         return true;
+        */
     }
 
     public String getName() { return this.name; }

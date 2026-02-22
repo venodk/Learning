@@ -3,7 +3,7 @@ package dynamicprograming;
 public class StockSpanProblem {
 
 	public static void main(String[] args) {
-		int a[] = { 100, 180, 260, 310, 40, 535, 695 };
+		int[] a = { 100, 180, 260, 310, 40, 535, 695 };
 		StockSpanProblem.findMaxProfit(a, 2); // 865
 
 		int[] b = { 10, 22, 5, 75, 65, 80 };
@@ -37,7 +37,7 @@ public class StockSpanProblem {
 
 class PurchaseList {
 
-	private class PurchaseNode {
+	private static class PurchaseNode {
 		int buy;
 		int sell;
 		PurchaseNode next;
@@ -75,12 +75,11 @@ class PurchaseList {
 		PurchaseNode e = new PurchaseNode(b, s);
 		if (null == tail) {
 			this.head = e;
-			this.tail = e;
-		} else {
+        } else {
 			this.tail.next = e;
-			this.tail = e;
-		}
-		this.count++;
+        }
+        this.tail = e;
+        this.count++;
 	}
 
 	public void print() {
@@ -126,7 +125,7 @@ class PurchaseList {
 	private PurchaseNode getMinLoseNode() {
 
 		PurchaseNode current = this.head;
-		PurchaseNode next = null;
+		PurchaseNode next;
 		PurchaseNode minLoseNode = null;
 		int maxProfit = Integer.MIN_VALUE;
 

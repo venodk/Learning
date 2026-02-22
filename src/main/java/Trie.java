@@ -19,7 +19,7 @@ public class Trie {
         root.isLeaf = true;
     }
 
-    public boolean search(String text) {
+    public boolean search(final String text) {
         Trie root = this;
         for (Character ch : text.toLowerCase().toCharArray()) {
             int index = ch - 'a';
