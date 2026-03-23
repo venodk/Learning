@@ -31,7 +31,7 @@ public class MinimizeCashFlow {
 		try {
 			minTxns = MinimizeCashFlow.getMinimumTransactions(netAmount);
 			System.out.println("Expected Transactions " + expectedCount + ", Actual " + minTxns.size());
-			System.out.println(minTxns.toString());
+			System.out.println(minTxns);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -41,8 +41,8 @@ public class MinimizeCashFlow {
 	public static int[] getNetAmount(List<Transaction> trans, int size) {
 		int[] netAmount = new int[size];
 		for (Transaction t : trans) {
-			netAmount[t.getSender()] -= t.getAmount();
-			netAmount[t.getReceiver()] += t.getAmount();
+			netAmount[t.sender()] -= t.amount();
+			netAmount[t.receiver()] += t.amount();
 		}
 		return netAmount;
 	}
@@ -101,29 +101,7 @@ class Mapper {
 	}
 }
 
-class Transaction {
-	private int sender;
-	private int receiver;
-	private int amount;
-
-	Transaction(int s, int r, int amount) {
-		this.sender = s;
-		this.receiver = r;
-		this.amount = amount;
-	}
-
-	public int getSender() {
-		return sender;
-	}
-
-	public int getReceiver() {
-		return receiver;
-	}
-
-	public int getAmount() {
-		return amount;
-	}
-
+record Transaction(int sender, int receiver, int amount) {
 	@Override
 	public String toString() {
 		return "Transfer " + this.amount + " from person " + this.sender + " to person " + this.receiver;

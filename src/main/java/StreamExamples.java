@@ -48,6 +48,7 @@ public class StreamExamples {
         System.out.println(sortedEmployees);
         System.out.println(result);
         System.out.println(bb2);
+        System.out.println(age);
     }
 
     private record Employee(String name, int age) {}
